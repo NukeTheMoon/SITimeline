@@ -1,0 +1,42 @@
+{
+  "name": "sitimeline",
+  "version": "1.0.0",
+  "description": "HTML5 responsive timeline",
+  "dependencies": {},
+  "devDependencies": {
+    "autoprefixer": "^6.5.3",
+    "chai": "^3.5.0",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.1.1",
+    "jshint": "^2.9.4",
+    "live-reload": "^1.1.0",
+    "mocha": "^3.1.2",
+    "parallelshell": "^2.0.0",
+    "postcss": "^5.2.5",
+    "postcss-cli": "^2.6.0",
+    "uglifyjs": "^2.4.10",
+    "underscore": "^1.8.3",
+    "watchify": "^3.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NukeTheMoon/SITimeline.git"
+  },
+  "scripts": {
+    "pretest": "npm run lint",
+    "test": "node node_modules/mocha/bin/_mocha test -u tdd -R spec",
+    "test:watch": "npm run test -- -w",
+    "css": "node node_modules/node-sass/bin/node-sass -r --output-style compressed scss/main.scss -o dist",
+    "css:watch": "npm run css -- -w",
+    "postcss": "postcss --use autoprefixer dist/main.css -d dist/",
+    "postcss:watch": "npm run postcss -- -w",
+    "watchall": "parallelshell \"npm run css:watch\" \"npm run postcss:watch\"",
+    "build": "node node_modules/uglifyjs/bin/uglifyjs js/timeline.js -o dist/timeline.min.js -mc",
+    "lint": "node node_modules/jshint/bin/jshint js"
+  },
+  "author": "Bartosz Jedrasik",
+  "bugs": {
+    "url": "https://github.com/NukeTheMoon/SITimeline/issues"
+  },
+  "homepage": "https://github.com/NukeTheMoon/SITimeline#readme"
+}
