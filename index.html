@@ -1,74 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="http://localhost:35729/livereload.js" defer></script>
-  <script type="text/javascript" src="js/timeline.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <link rel="stylesheet" type="text/css" href="dist/main.css" media="screen">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800" rel="stylesheet">
+  <!--<script src="http://localhost:35729/livereload.js" async></script>-->
+  <script src="./node_modules/angular/angular.js" defer></script>
+  <script type="text/javascript" src="./js/timeline.js" defer></script>
 </head>
-<body>
+<body ng-app="Timeline" ng-controller="TimelineController">
 
-<div class="main-container">
+<div class="hidden-xs main-container">
   <div class="timeline-container">
-    <div class="timeline-shadow">
-      
-    </div>
+    <div class="timeline-shadow"></div>
     <div class="timeline-frame">
-      <div class="timeline-bar">
+      <div class="timeline-bar" style="width: {{ getBarProgress() }}">
       </div>
-      <div class="event-circle-background" style="left: 10%">
-        <div class="arrow-box-container">
-          <div class="arrow-box">
-            <div class="tooltip-date-container">
-              <span class="tooltip-date">11.06.2015</span>
+      <div ng-repeat="event in events" class="invisible-bar" style="width: {{ getEventLeftOffset(event) }}">
+        <div class="event-circle-background" ng-class="{ 'disabled' : determineIfDisabled(event) }">
+          <div class="arrow-box-container">
+            <div class="arrow-box">
+              <div class="tooltip-date-container">
+                <span class="tooltip-date">{{ getDateString(event) }}</span>
+              </div>
+              <span class="tooltip-description">{{ event.name }}</span>
             </div>
-            <span class="tooltip-description">Lorem ipsum dolor</span>
           </div>
-        </div>
-        <div class="event-circle">
-          <span class="event-icon fa fa-heart"></span>
-        </div>
-      </div>
-      <div class="event-circle-background" style="left: 32%">
-        <div class="arrow-box-container">
-          <div class="arrow-box">
-            <div class="tooltip-date-container">
-              <span class="tooltip-date">11.06.2015</span>
-            </div>
-            <span class="tooltip-description">Lorem ipsum dolor</span>
+          <div class="event-circle">
+            <span class="event-icon fa fa-{{ event.faIcon }}"></span>
           </div>
-        </div>
-        <div class="event-circle">
-          <span class="event-icon fa fa-flask"></span>
-        </div>
-      </div>
-      <div class="event-circle-background disabled" style="left: 71%">
-        <div class="arrow-box-container">
-          <div class="arrow-box">
-            <div class="tooltip-date-container">
-              <span class="tooltip-date">11.06.2015</span>
-            </div>
-            <span class="tooltip-description">Lorem ipsum dolor</span>
-          </div>
-        </div>
-        <div class="event-circle">
-          <span class="event-icon fa fa-gavel"></span>
-        </div>
-      </div>
-      <div class="event-circle-background disabled" style="left: 95%">
-        <div class="arrow-box-container">
-          <div class="arrow-box">
-            <div class="tooltip-date-container">
-              <span class="tooltip-date">11.06.2015</span>
-            </div>
-            <span class="tooltip-description">Lorem ipsum dolor</span>
-          </div>
-        </div>
-        <div class="event-circle">
-          <span class="event-icon fa fa-trophy"></span>
         </div>
       </div>
     </div>
+  </div>
+</div>
+<div class="visible-xs mobile-container">
+  <div ng-repeat="event in events" class="event-item">
+    <div class="event-circle-background mobile" ng-class="{ 'disabled' : determineIfDisabled(event) }">
+      <div class="event-circle">
+        <span class="event-icon fa fa-{{ event.faIcon }}"></span>
+      </div>
+    </div>
+    <div class="info-container">
+      <div class="date-container mobile">
+        <span class="tooltip-date mobile">{{ getDateString(event) }}</span>
+      </div>
+      <div class="description-container mobile">
+        <span class="tooltip-description mobile">{{ event.name }}</span>    </div>
+      </div>
   </div>
 </div>
 
